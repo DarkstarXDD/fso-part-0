@@ -1,28 +1,26 @@
 export default function App() {
   const course = "Half Stack application development"
 
-  const part1 = {
-    name: "Fundamentals of React",
-    exercises: 10,
-  }
-
-  const part2 = {
-    name: "Using props to pass data",
-    exercises: 7,
-  }
-
-  const part3 = {
-    name: "State of a component",
-    exercises: 14,
-  }
-
-  const total = part1.exercises + part2.exercises + part3.exercises
+  const parts = [
+    {
+      name: "Fundamentals of React",
+      exercises: 10,
+    },
+    {
+      name: "Using props to pass data",
+      exercises: 7,
+    },
+    {
+      name: "State of a component",
+      exercises: 14,
+    },
+  ]
 
   return (
     <main>
       <Header course={course} />
-      <Content part1={part1} part2={part2} part3={part3} />
-      <Total total={total} />
+      <Content parts={parts} />
+      <Total parts={parts} />
     </main>
   )
 }
@@ -31,41 +29,30 @@ function Header({ course }: { course: string }) {
   return <h1>{course}</h1>
 }
 
-type Part = {
+type PartType = {
   name: string
   exercises: number
 }
 
-type ContentProps = {
-  part1: Part
-  part2: Part
-  part3: Part
-}
-
-function Content({ part1, part2, part3 }: ContentProps) {
+function Content({ parts }: { parts: PartType[] }) {
   return (
     <>
-      <Part partName={part1.name} numOfExercises={part1.exercises} />
-      <Part partName={part2.name} numOfExercises={part2.exercises} />
-      <Part partName={part3.name} numOfExercises={part3.exercises} />
+      <Part part={parts[0]} />
+      <Part part={parts[1]} />
+      <Part part={parts[2]} />
     </>
   )
 }
 
-function Part({
-  partName,
-  numOfExercises,
-}: {
-  partName: string
-  numOfExercises: number
-}) {
+function Part({ part }: { part: PartType }) {
   return (
     <p>
-      {partName} {numOfExercises}
+      {part.name} {part.exercises}
     </p>
   )
 }
 
-function Total({ total }: { total: number }) {
+function Total({ parts }: { parts: PartType[] }) {
+  const total = parts[0].exercises + parts[1].exercises + parts[2].exercises
   return <p>Number of exercises {total}</p>
 }
