@@ -14,6 +14,12 @@ const anecdotes = [
 export default function App() {
   const [index, setIndex] = useState(getRandomIndex)
 
+  const [votes, setVotes] = useState(() => {
+    const votesObject: { [key: number]: number } = {}
+    anecdotes.forEach((_, index) => (votesObject[index] = 0))
+    return votesObject
+  })
+
   function getRandomIndex() {
     const randomIndex = Math.floor(Math.random() * anecdotes.length)
     return randomIndex
@@ -22,6 +28,17 @@ export default function App() {
   return (
     <main>
       <p>{anecdotes[index]}</p>
+      <p>(has {votes[index]} votes)</p>
+      <button
+        onClick={() =>
+          setVotes({
+            ...votes,
+            [index]: votes[index] + 1,
+          })
+        }
+      >
+        Vote
+      </button>
       <button onClick={() => setIndex(getRandomIndex)}>Next Anecdote</button>
     </main>
   )
