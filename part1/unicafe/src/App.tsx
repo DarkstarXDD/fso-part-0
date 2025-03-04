@@ -5,6 +5,10 @@ export default function App() {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const all = good + neutral + bad
+  const average = all === 0 ? 0 : (good - bad) / all
+  const positivePercentage = all === 0 ? 0 : (good / all) * 100
+
   function handleGoodClick() {
     setGood(good + 1)
   }
@@ -31,6 +35,9 @@ export default function App() {
         <li>Good: {good}</li>
         <li>Neutral: {neutral}</li>
         <li>Bad: {bad}</li>
+        <li>All: {all}</li>
+        <li>Average: {average}</li>
+        <li>Positive: {positivePercentage} %</li>
       </ul>
     </main>
   )
