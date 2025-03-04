@@ -5,6 +5,8 @@ export default function App() {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const all = good + neutral + bad
+
   function handleGoodClick() {
     setGood(good + 1)
   }
@@ -25,7 +27,11 @@ export default function App() {
         <Button onClick={handleNeutralClick} text="Neutral" />
         <Button onClick={handleBadClick} text="Bad" />
       </div>
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      {all ? (
+        <Statistics good={good} neutral={neutral} bad={bad} />
+      ) : (
+        <p>No feedback given</p>
+      )}
     </main>
   )
 }
