@@ -22,7 +22,7 @@ export default function App() {
   return (
     <main>
       <h1>Give Feedback</h1>
-      <div>
+      <div className="button-group">
         <Button onClick={handleGoodClick} text="Good" />
         <Button onClick={handleNeutralClick} text="Neutral" />
         <Button onClick={handleBadClick} text="Bad" />
@@ -54,7 +54,7 @@ function Statistics({
   const positivePercentage = all === 0 ? 0 : (good / all) * 100
 
   return (
-    <>
+    <div className="statistics-wrapper">
       <h2>Statistics</h2>
 
       <table>
@@ -62,15 +62,15 @@ function Statistics({
           <StatisticLine text="Good" value={good} />
           <StatisticLine text="Neutral" value={neutral} />
           <StatisticLine text="Bad" value={bad} />
-          <StatisticLine text="Average" value={average} />
+          <StatisticLine text="Average" value={average.toFixed(2)} />
           <StatisticLine
             text="Positive"
-            value={positivePercentage}
+            value={positivePercentage.toFixed(2)}
             percentage={true}
           />
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 
@@ -80,7 +80,7 @@ function StatisticLine({
   percentage,
 }: {
   text: string
-  value: number
+  value: number | string
   percentage?: boolean
 }) {
   return (
