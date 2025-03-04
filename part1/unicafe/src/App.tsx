@@ -56,21 +56,40 @@ function Statistics({
   return (
     <>
       <h2>Statistics</h2>
-      <ul>
-        <StatisticLine text="Good" value={good} />
-        <StatisticLine text="Neutral" value={neutral} />
-        <StatisticLine text="Bad" value={bad} />
-        <StatisticLine text="Average" value={average} />
-        <StatisticLine text="Positive" value={positivePercentage} />
-      </ul>
+
+      <table>
+        <tbody>
+          <StatisticLine text="Good" value={good} />
+          <StatisticLine text="Neutral" value={neutral} />
+          <StatisticLine text="Bad" value={bad} />
+          <StatisticLine text="Average" value={average} />
+          <StatisticLine
+            text="Positive"
+            value={positivePercentage}
+            percentage={true}
+          />
+        </tbody>
+      </table>
     </>
   )
 }
 
-function StatisticLine({ text, value }: { text: string; value: number }) {
+function StatisticLine({
+  text,
+  value,
+  percentage,
+}: {
+  text: string
+  value: number
+  percentage?: boolean
+}) {
   return (
-    <li>
-      {text}: {value}
-    </li>
+    <tr>
+      <th scope="row">{text}</th>
+      <td>
+        {value}
+        {percentage ? " %" : ""}
+      </td>
+    </tr>
   )
 }
