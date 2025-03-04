@@ -5,10 +5,6 @@ export default function App() {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const all = good + neutral + bad
-  const average = all === 0 ? 0 : (good - bad) / all
-  const positivePercentage = all === 0 ? 0 : (good / all) * 100
-
   function handleGoodClick() {
     setGood(good + 1)
   }
@@ -29,7 +25,30 @@ export default function App() {
         <Button onClick={handleNeutralClick} text="Neutral" />
         <Button onClick={handleBadClick} text="Bad" />
       </div>
+      <Statistics good={good} neutral={neutral} bad={bad} />
+    </main>
+  )
+}
 
+function Button({ onClick, text }: { onClick: () => void; text: string }) {
+  return <button onClick={onClick}>{text}</button>
+}
+
+function Statistics({
+  good,
+  neutral,
+  bad,
+}: {
+  good: number
+  neutral: number
+  bad: number
+}) {
+  const all = good + neutral + bad
+  const average = all === 0 ? 0 : (good - bad) / all
+  const positivePercentage = all === 0 ? 0 : (good / all) * 100
+
+  return (
+    <>
       <h2>Statistics</h2>
       <ul>
         <li>Good: {good}</li>
@@ -39,10 +58,6 @@ export default function App() {
         <li>Average: {average}</li>
         <li>Positive: {positivePercentage} %</li>
       </ul>
-    </main>
+    </>
   )
-}
-
-function Button({ onClick, text }: { onClick: () => void; text: string }) {
-  return <button onClick={onClick}>{text}</button>
 }
