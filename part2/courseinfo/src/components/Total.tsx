@@ -6,5 +6,10 @@ export default function Total({ parts }: { parts: PartType[] }) {
     0
   )
 
-  return <p>Total Number of Exercises: {total}</p>
+  return (
+    <tr>
+      <th scope="row">Total number of exercises</th>
+      <td>{total}</td>
+    </tr>
+  )
 }

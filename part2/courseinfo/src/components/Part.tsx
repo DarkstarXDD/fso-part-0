@@ -6,8 +6,9 @@ export type PartType = {
 
 export default function Part({ part }: { part: PartType }) {
   return (
-    <p>
-      {part.name} {part.exercises}
-    </p>
+    <tr>
+      <td>{part.name}</td>
+      <td>{part.exercises}</td>
+    </tr>
   )
 }

@@ -3,7 +3,7 @@ import Course from "./components/Course"
 const courses = [
   {
     id: 1,
-    name: "Half Stack application development",
+    name: "Half Stack Application Development",
     parts: [
       {
         name: "Fundamentals of React",
