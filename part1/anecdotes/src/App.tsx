@@ -33,29 +33,44 @@ export default function App() {
 
   return (
     <main>
-      <h1>Anecdote of the Day</h1>
-      <p>{anecdotes[index]}</p>
-      <p>(has {votes[index]} votes)</p>
-      <button
-        onClick={() =>
-          setVotes({
-            ...votes,
-            [index]: votes[index] + 1,
-          })
-        }
-      >
-        Vote
-      </button>
-      <button onClick={() => setIndex(getRandomIndex)}>Next Anecdote</button>
-      <h2>Anecdote with Most Votes</h2>
-      {maxNumOfVotes === 0 ? (
-        <p>Not enough votes</p>
-      ) : (
-        <>
-          <p>{anecdoteWithMostVotes}</p>
-          <p>(has {votes[Number(keyOfMaxVotes)]} votes)</p>
-        </>
-      )}
+      <div className="anecdote-wrapper">
+        <h1>Anecdote of the Day</h1>
+        <p>"{anecdotes[index]}"</p>
+        <p className="vote-count">
+          (has {votes[index]} {votes[index] > 1 ? "votes" : "vote"})
+        </p>
+
+        <div className="button-wrapper">
+          <button
+            onClick={() =>
+              setVotes({
+                ...votes,
+                [index]: votes[index] + 1,
+              })
+            }
+          >
+            Vote
+          </button>
+          <button onClick={() => setIndex(getRandomIndex)}>
+            Next Anecdote
+          </button>
+        </div>
+      </div>
+
+      <div className="anecdote-wrapper">
+        <h2>Anecdote with Most Votes</h2>
+        {maxNumOfVotes === 0 ? (
+          <p>Not enough votes</p>
+        ) : (
+          <>
+            <p>"{anecdoteWithMostVotes}"</p>
+            <p className="vote-count">
+              (has {votes[Number(keyOfMaxVotes)]}{" "}
+              {maxNumOfVotes > 1 ? "votes" : "vote"})
+            </p>
+          </>
+        )}
+      </div>
     </main>
   )
 }
