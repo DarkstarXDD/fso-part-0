@@ -5,7 +5,6 @@ export default function Total({ parts }: { parts: PartType[] }) {
     (currentTotal, part) => currentTotal + part.exercises,
     0
   )
-  console.log(total)
 
   return <p>Total Number of Exercises: {total}</p>
 }
