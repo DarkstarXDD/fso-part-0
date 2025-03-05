@@ -11,22 +11,29 @@ const anecdotes = [
   "The only way to go fast, is to go well.",
 ]
 
+function getRandomIndex() {
+  const randomIndex = Math.floor(Math.random() * anecdotes.length)
+  return randomIndex
+}
+
 export default function App() {
   const [index, setIndex] = useState(getRandomIndex)
 
   const [votes, setVotes] = useState(() => {
-    const votesObject: { [key: number]: number } = {}
-    anecdotes.forEach((_, index) => (votesObject[index] = 0))
+    // map() will return a set of key-value pairs, which fromEntries() will convert into an object.
+    const votesObject = Object.fromEntries(anecdotes.map((_, i) => [i, 0]))
     return votesObject
   })
 
-  function getRandomIndex() {
-    const randomIndex = Math.floor(Math.random() * anecdotes.length)
-    return randomIndex
-  }
+  const maxNumOfVotes = Math.max(...Object.values(votes))
+  const keyOfMaxVotes = Object.keys(votes).find(
+    (key) => votes[Number(key)] === maxNumOfVotes
+  )
+  const anecdoteWithMostVotes = anecdotes[Number(keyOfMaxVotes)]
 
   return (
     <main>
+      <h1>Anecdote of the Day</h1>
       <p>{anecdotes[index]}</p>
       <p>(has {votes[index]} votes)</p>
       <button
@@ -40,6 +47,15 @@ export default function App() {
         Vote
       </button>
       <button onClick={() => setIndex(getRandomIndex)}>Next Anecdote</button>
+      <h2>Anecdote with Most Votes</h2>
+      {maxNumOfVotes === 0 ? (
+        <p>Not enough votes</p>
+      ) : (
+        <>
+          <p>{anecdoteWithMostVotes}</p>
+          <p>(has {votes[Number(keyOfMaxVotes)]} votes)</p>
+        </>
+      )}
     </main>
   )
 }
