@@ -1,4 +1,5 @@
-import { useState, useRef, type FormEvent, type ChangeEvent } from "react"
+import { useState, useRef, type FormEvent } from "react"
+import SearchField from "./components/SearchField"
 import Persons from "./components/Persons"
 
 export type PersonsType = { name: string; phoneNumber: string }[]
@@ -33,8 +34,8 @@ export default function App() {
     }
   }
 
-  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
-    setSearch(e.target.value)
+  function handleSearch(newSearch: string) {
+    setSearch(newSearch)
   }
 
   const filteredPersons = search
@@ -46,8 +47,7 @@ export default function App() {
   return (
     <main>
       <h1>Phonebook</h1>
-      <label htmlFor="search">Search</label>
-      <input type="text" id="search" value={search} onChange={handleSearch} />
+      <SearchField value={search} onSearch={handleSearch} />
 
       <form onSubmit={handleSubmit}>
         <div>
