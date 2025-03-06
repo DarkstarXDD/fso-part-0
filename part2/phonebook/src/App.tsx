@@ -1,4 +1,7 @@
-import { useState, useRef, type FormEvent } from "react"
+import { useState, useRef, type FormEvent, type ChangeEvent } from "react"
+import Persons from "./components/Persons"
+
+export type PersonsType = { name: string; phoneNumber: string }[]
 
 export default function App() {
   const [persons, setPersons] = useState([
@@ -6,6 +9,10 @@ export default function App() {
   ])
   const [name, setName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
+  const [search, setSearch] = useState("")
+  const [filteredNameList, setFilteredNameList] = useState<
+    PersonsType | undefined
+  >()
 
   const nameInputRef = useRef<HTMLInputElement>(null)
 
@@ -29,9 +36,21 @@ export default function App() {
     }
   }
 
+  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value)
+    setFilteredNameList(
+      persons.filter((person) =>
+        person.name.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    )
+  }
+
   return (
     <main>
       <h1>Phonebook</h1>
+      <label htmlFor="search">Search</label>
+      <input type="text" id="search" value={search} onChange={handleSearch} />
+
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>
@@ -57,13 +76,11 @@ export default function App() {
       </form>
 
       <h2>Numbers</h2>
-      <ul>
-        {persons.map((person, index) => (
-          <li key={index}>
-            {person.name}: {person.phoneNumber}
-          </li>
-        ))}
-      </ul>
+      {search ? (
+        <Persons persons={filteredNameList} />
+      ) : (
+        <Persons persons={persons} />
+      )}
     </main>
   )
 }
