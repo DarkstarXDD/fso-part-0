@@ -6,13 +6,19 @@ export default function App() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setPersons([
-      ...persons,
-      {
-        name: newName,
-      },
-    ])
-    setNewName("")
+    const isNameExist = persons.some((person) => person.name === newName)
+
+    if (isNameExist) {
+      alert(`${newName} is already added to phonebook`)
+    } else {
+      setPersons([
+        ...persons,
+        {
+          name: newName,
+        },
+      ])
+      setNewName("")
+    }
   }
 
   return (
