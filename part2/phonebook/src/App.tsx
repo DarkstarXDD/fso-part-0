@@ -13,6 +13,18 @@ export default function App() {
     setSearch(newSearch)
   }
 
+  function handleSubmit(newPerson: PersonsType[number]) {
+    const isNameExist = persons.some((person) => person.name === newPerson.name)
+
+    if (isNameExist) {
+      alert(`${newPerson.name} is already added to phonebook`)
+      return false
+    } else {
+      setPersons([...persons, newPerson])
+      return true
+    }
+  }
+
   const filteredPersons = search
     ? persons.filter((person) =>
         person.name.toLowerCase().includes(search.toLowerCase())
@@ -23,10 +35,7 @@ export default function App() {
     <main>
       <h1>Phonebook</h1>
       <SearchField value={search} onSearch={handleSearch} />
-      <PersonForm
-        persons={persons}
-        onSubmit={(newPersons: PersonsType) => setPersons(newPersons)}
-      />
+      <PersonForm onSubmit={handleSubmit} />
 
       <h2>Numbers</h2>
       {persons.length > 0 ? (

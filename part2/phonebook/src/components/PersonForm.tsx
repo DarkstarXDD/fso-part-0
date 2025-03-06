@@ -2,11 +2,9 @@ import { useState, useRef, type FormEvent } from "react"
 import { PersonsType } from "../App"
 
 export default function PersonForm({
-  persons,
   onSubmit,
 }: {
-  persons: PersonsType
-  onSubmit: (newPerson: PersonsType) => void
+  onSubmit: (newPerson: PersonsType[number]) => boolean
 }) {
   const [name, setName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -15,18 +13,7 @@ export default function PersonForm({
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const isNameExist = persons.some((person) => person.name === name)
-
-    if (isNameExist) {
-      alert(`${name} is already added to phonebook`)
-    } else {
-      onSubmit([
-        ...persons,
-        {
-          name: name,
-          phoneNumber: phoneNumber,
-        },
-      ])
+    if (onSubmit({ name: name, phoneNumber: phoneNumber })) {
       setName("")
       setPhoneNumber("")
       nameInputRef.current?.focus()
