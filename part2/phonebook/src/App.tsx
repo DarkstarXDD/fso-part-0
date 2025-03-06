@@ -1,38 +1,13 @@
-import { useState, useRef, type FormEvent } from "react"
+import { useState } from "react"
 import SearchField from "./components/SearchField"
 import Persons from "./components/Persons"
+import PersonForm from "./components/PersonForm"
 
 export type PersonsType = { name: string; phoneNumber: string }[]
 
 export default function App() {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phoneNumber: "040-1234567" },
-  ])
-  const [name, setName] = useState("")
-  const [phoneNumber, setPhoneNumber] = useState("")
+  const [persons, setPersons] = useState<PersonsType>([])
   const [search, setSearch] = useState("")
-
-  const nameInputRef = useRef<HTMLInputElement>(null)
-
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const isNameExist = persons.some((person) => person.name === name)
-
-    if (isNameExist) {
-      alert(`${name} is already added to phonebook`)
-    } else {
-      setPersons([
-        ...persons,
-        {
-          name: name,
-          phoneNumber: phoneNumber,
-        },
-      ])
-      setName("")
-      setPhoneNumber("")
-      nameInputRef.current?.focus()
-    }
-  }
 
   function handleSearch(newSearch: string) {
     setSearch(newSearch)
@@ -48,33 +23,17 @@ export default function App() {
     <main>
       <h1>Phonebook</h1>
       <SearchField value={search} onSearch={handleSearch} />
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            required
-            ref={nameInputRef}
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <label htmlFor="phone-number">Phone Number</label>
-          <input
-            type="tel"
-            required
-            id="phone-number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </div>
-
-        <button>Add</button>
-      </form>
+      <PersonForm
+        persons={persons}
+        onSubmit={(newPersons: PersonsType) => setPersons(newPersons)}
+      />
 
       <h2>Numbers</h2>
-      <Persons persons={filteredPersons} />
+      {persons.length > 0 ? (
+        <Persons persons={filteredPersons} />
+      ) : (
+        <p>No numbers saved</p>
+      )}
     </main>
   )
 }
