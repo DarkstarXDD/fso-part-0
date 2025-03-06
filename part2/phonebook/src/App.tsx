@@ -1,23 +1,31 @@
-import { useState, type FormEvent } from "react"
+import { useState, useRef, type FormEvent } from "react"
 
 export default function App() {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }])
-  const [newName, setNewName] = useState("")
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", phoneNumber: "040-1234567" },
+  ])
+  const [name, setName] = useState("")
+  const [phoneNumber, setPhoneNumber] = useState("")
+
+  const nameInputRef = useRef<HTMLInputElement>(null)
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const isNameExist = persons.some((person) => person.name === newName)
+    const isNameExist = persons.some((person) => person.name === name)
 
     if (isNameExist) {
-      alert(`${newName} is already added to phonebook`)
+      alert(`${name} is already added to phonebook`)
     } else {
       setPersons([
         ...persons,
         {
-          name: newName,
+          name: name,
+          phoneNumber: phoneNumber,
         },
       ])
-      setNewName("")
+      setName("")
+      setPhoneNumber("")
+      nameInputRef.current?.focus()
     }
   }
 
@@ -28,9 +36,20 @@ export default function App() {
         <div>
           <label htmlFor="name">Name:</label>
           <input
+            required
+            ref={nameInputRef}
+            type="text"
             id="name"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <label htmlFor="phone-number">Phone Number</label>
+          <input
+            type="tel"
+            required
+            id="phone-number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
 
@@ -40,7 +59,9 @@ export default function App() {
       <h2>Numbers</h2>
       <ul>
         {persons.map((person, index) => (
-          <li key={index}>{person.name}</li>
+          <li key={index}>
+            {person.name}: {person.phoneNumber}
+          </li>
         ))}
       </ul>
     </main>
