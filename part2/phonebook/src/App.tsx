@@ -10,9 +10,6 @@ export default function App() {
   const [name, setName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [search, setSearch] = useState("")
-  const [filteredNameList, setFilteredNameList] = useState<
-    PersonsType | undefined
-  >()
 
   const nameInputRef = useRef<HTMLInputElement>(null)
 
@@ -38,12 +35,13 @@ export default function App() {
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value)
-    setFilteredNameList(
-      persons.filter((person) =>
-        person.name.toLowerCase().includes(e.target.value.toLowerCase())
-      )
-    )
   }
+
+  const filteredPersons = search
+    ? persons.filter((person) =>
+        person.name.toLowerCase().includes(search.toLowerCase())
+      )
+    : persons
 
   return (
     <main>
@@ -76,11 +74,7 @@ export default function App() {
       </form>
 
       <h2>Numbers</h2>
-      {search ? (
-        <Persons persons={filteredNameList} />
-      ) : (
-        <Persons persons={persons} />
-      )}
+      <Persons persons={filteredPersons} />
     </main>
   )
 }
