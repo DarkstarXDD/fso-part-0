@@ -9,7 +9,8 @@ export default function Persons({
     <ul>
       {persons?.map((person, index) => (
         <li key={index}>
-          {person.name}: {person.phoneNumber}
+          <span>{person.name}</span>
+          <span>{person.phoneNumber}</span>
         </li>
       ))}
     </ul>

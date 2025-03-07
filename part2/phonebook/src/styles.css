@@ -28,14 +28,10 @@
 
 body {
   min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   font-family: "Inter", sans-serif;
   color: var(--white);
   background-color: var(--black);
-  padding: 1rem;
+  padding: 2rem 1rem;
 }
 
 #root {
@@ -97,6 +93,7 @@ button {
   border-radius: var(--radius);
   padding: 0.75rem 1rem;
   margin-top: 1rem;
+  outline-offset: 0.125rem;
 }
 
 button:hover,
@@ -109,12 +106,27 @@ h2 {
 }
 
 .numbers-wrapper {
+  width: 100%;
   display: grid;
   gap: 1.5rem;
 }
 
+ul {
+  display: grid;
+  gap: 1rem;
+}
+
 li {
   list-style: none;
-  padding: 0.75rem 1rem;
-  border-bottom: var(--border-width) solid var(--border-color);
+  padding: 0.75rem 1.5rem;
+  border-top: var(--border-width) solid var(--border-color);
+  display: grid;
+  gap: 0.5rem;
+  justify-items: flex-start;
+  justify-items: center;
+}
+
+li > :nth-child(2) {
+  font-size: 0.875rem;
+  opacity: 0.8;
 }
