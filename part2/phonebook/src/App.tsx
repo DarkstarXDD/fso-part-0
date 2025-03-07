@@ -37,12 +37,14 @@ export default function App() {
       <SearchField value={search} onSearch={handleSearch} />
       <PersonForm onSubmit={handleSubmit} />
 
-      <h2>Numbers</h2>
-      {persons.length > 0 ? (
-        <Persons persons={filteredPersons} />
-      ) : (
-        <p>No numbers saved</p>
-      )}
+      <div className="numbers-wrapper">
+        <h2>Numbers</h2>
+        {persons.length > 0 ? (
+          <Persons persons={filteredPersons} />
+        ) : (
+          <p>No numbers saved</p>
+        )}
+      </div>
     </main>
   )
 }

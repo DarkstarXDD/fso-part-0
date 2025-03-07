@@ -6,7 +6,7 @@ export default function SearchField({
   onSearch: (newSearch: string) => void
 }) {
   return (
-    <>
+    <div className="input-field search-field">
       <label htmlFor="search">Search</label>
       <input
         type="text"
@@ -14,6 +14,6 @@ export default function SearchField({
         value={value}
         onChange={(e) => onSearch(e.target.value)}
       />
-    </>
+    </div>
   )
 }

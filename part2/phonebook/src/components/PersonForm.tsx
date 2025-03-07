@@ -22,7 +22,7 @@ export default function PersonForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="input-field">
         <label htmlFor="name">Name:</label>
         <input
           required
@@ -32,6 +32,9 @@ export default function PersonForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+      </div>
+
+      <div className="input-field">
         <label htmlFor="phone-number">Phone Number</label>
         <input
           type="tel"
@@ -42,7 +45,7 @@ export default function PersonForm({
         />
       </div>
 
-      <button>Add</button>
+      <button>Add new contact</button>
     </form>
   )
 }
