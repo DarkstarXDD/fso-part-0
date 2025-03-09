@@ -1,13 +1,20 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 import SearchField from "./components/SearchField"
 import Persons from "./components/Persons"
 import PersonForm from "./components/PersonForm"
 
-export type PersonsType = { name: string; phoneNumber: string }[]
+export type PersonsType = { id: number; name: string; number: string }[]
 
 export default function App() {
   const [persons, setPersons] = useState<PersonsType>([])
   const [search, setSearch] = useState("")
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/persons")
+      .then((res) => setPersons(res.data))
+  }, [])
 
   function handleSearch(newSearch: string) {
     setSearch(newSearch)

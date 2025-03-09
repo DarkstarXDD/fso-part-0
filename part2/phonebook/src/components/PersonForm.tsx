@@ -13,7 +13,7 @@ export default function PersonForm({
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (onSubmit({ name: name, phoneNumber: phoneNumber })) {
+    if (onSubmit({ id: Math.random(), name: name, number: phoneNumber })) {
       setName("")
       setPhoneNumber("")
       nameInputRef.current?.focus()
